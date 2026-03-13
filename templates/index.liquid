@@ -1,0 +1,198 @@
+<!-- /templates/index.liquid -->
+
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="hero-content">
+    <h1 class="hero-title">Smart Home Essentials for Everyday Life</h1>
+    <p class="hero-subtitle">Practical tools designed to simplify your daily routine</p>
+    <a href="/collections/all" class="btn">Shop Now</a>
+  </div>
+</section>
+
+<!-- Trust Section -->
+<section class="trust-section">
+  <div class="container">
+    <div class="trust-grid">
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" /></svg>
+        </div>
+        <div class="trust-text">Free Shipping in Italy</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+        </div>
+        <div class="trust-text">30 Day Guarantee</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+        </div>
+        <div class="trust-text">Secure Payment</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+        </div>
+        <div class="trust-text">10,000+ Happy Customers</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Products Section -->
+<section class="featured-products">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Featured Essentials</h2>
+      <p style="color: var(--color-text-light);">Our most loved household tools</p>
+    </div>
+    
+    <div class="product-grid">
+      {% for product in collections.frontpage.products limit:4 %}
+        <div class="product-card">
+          {% if product.compare_at_price > product.price %}
+            <div class="discount-badge">Save {{ product.compare_at_price | minus: product.price | money_without_currency | times: 100 | divided_by: product.compare_at_price | round }}%</div>
+          {% endif %}
+          
+          <a href="{{ product.url | within: collection }}" class="product-image-wrap">
+            <img src="{{ product.featured_image.src | img_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}">
+          </a>
+          
+          <a href="{{ product.url | within: collection }}" class="product-title">{{ product.title }}</a>
+          <div class="product-price">
+            {% if product.compare_at_price > product.price %}
+              <s style="color: var(--color-text-light); font-size: 14px; font-weight: 400; margin-right: 5px;">{{ product.compare_at_price | money }}</s>
+            {% endif %}
+            {{ product.price | money }}
+          </div>
+          
+          <form method="post" action="/cart/add" class="add-to-cart-form">
+            <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+            <button type="submit" class="btn add-to-cart-btn">Add to Cart</button>
+          </form>
+        </div>
+      {% else %}
+        <!-- Demo Products Details -->
+        <div class="product-card">
+          <div class="discount-badge">New</div>
+          <a href="#" class="product-image-wrap">
+            <img src="https://via.placeholder.com/300x300/F4EFE6/7A8B6A?text=Product+1" alt="Smart Mop">
+          </a>
+          <a href="#" class="product-title">ErgoGrip Smart Mop</a>
+          <div class="product-price">€29.99</div>
+          <button class="btn add-to-cart-btn">Add to Cart</button>
+        </div>
+
+        <div class="product-card">
+          <div class="discount-badge">-15%</div>
+          <a href="#" class="product-image-wrap">
+            <img src="https://via.placeholder.com/300x300/F4EFE6/7A8B6A?text=Product+2" alt="Kitchen Organizer">
+          </a>
+          <a href="#" class="product-title">Minimalist Spice Rack</a>
+          <div class="product-price"><s style="color: var(--color-text-light); font-size: 14px; font-weight: 400; margin-right: 5px;">€35.00</s>€29.75</div>
+          <button class="btn add-to-cart-btn">Add to Cart</button>
+        </div>
+
+        <div class="product-card">
+          <a href="#" class="product-image-wrap">
+            <img src="https://via.placeholder.com/300x300/F4EFE6/7A8B6A?text=Product+3" alt="Cleaning Set">
+          </a>
+          <a href="#" class="product-title">Eco-friendly Brush Set</a>
+          <div class="product-price">€18.50</div>
+          <button class="btn add-to-cart-btn">Add to Cart</button>
+        </div>
+
+        <div class="product-card">
+          <div class="discount-badge">-10%</div>
+          <a href="#" class="product-image-wrap">
+            <img src="https://via.placeholder.com/300x300/F4EFE6/7A8B6A?text=Product+4" alt="Vacuum">
+          </a>
+          <a href="#" class="product-title">Compact Cordless Vacuum</a>
+          <div class="product-price"><s style="color: var(--color-text-light); font-size: 14px; font-weight: 400; margin-right: 5px;">€110.00</s>€99.00</div>
+          <button class="btn add-to-cart-btn">Add to Cart</button>
+        </div>
+      {% endfor %}
+    </div>
+    
+    <div style="text-align: center; margin-top: 40px;">
+      <a href="/collections/all" class="btn btn--outline">View All Products</a>
+    </div>
+  </div>
+</section>
+
+<!-- Benefits Section -->
+<section class="benefits-section">
+  <div class="container">
+    <div class="benefits-wrapper">
+      <div class="benefits-image">
+        <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&q=80&w=800&h=600" alt="Beautiful kitchen">
+      </div>
+      <div class="benefits-content">
+        <h2 class="section-title" style="text-align: left;">Designed for the Modern Italian Home</h2>
+        <p style="color: var(--color-text-light); font-size: 16px;">We believe everyday tasks shouldn't be a chore. Discover why thousands of households are switching to Xophia.</p>
+        
+        <ul class="benefits-list">
+          <li>
+            <div class="benefit-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+            </div>
+            <div class="benefit-text">
+              <h4>Practical Solutions</h4>
+              <p>Tools that actually work and save you time.</p>
+            </div>
+          </li>
+          <li>
+            <div class="benefit-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" /></svg>
+            </div>
+            <div class="benefit-text">
+              <h4>High Quality Materials</h4>
+              <p>Built to last through years of daily use.</p>
+            </div>
+          </li>
+          <li>
+            <div class="benefit-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            </div>
+            <div class="benefit-text">
+              <h4>Easy to Use</h4>
+              <p>Intuitive designs that everyone in the family can use.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Customer Reviews -->
+<section class="reviews-section" style="background-color: #FDFBF7;">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Loved by Italian Homes</h2>
+      <p style="color: var(--color-text-light);">Don't just take our word for it.</p>
+    </div>
+    
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p class="review-text">"Absolutely love the minimalist spice rack. It looks completely natural in our kitchen and freed up so much counter space!"</p>
+        <div class="reviewer-name">- Giulia M., Milano</div>
+      </div>
+      
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p class="review-text">"The brushes are so well made. You can feel the quality compared to the plastic ones from the supermarket. Premium feel indeed."</p>
+        <div class="reviewer-name">- Marco T., Roma</div>
+      </div>
+      
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p class="review-text">"Arrived quickly and the packaging was completely recyclable. Products work exactly as described. highly recommended!"</p>
+        <div class="reviewer-name">- Sofia L., Napoli</div>
+      </div>
+    </div>
+  </div>
+</section>
