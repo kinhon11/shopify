@@ -640,3 +640,86 @@ body {
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255,255,255,0.5);
 }
+
+
+// Additional Premium Styles
+
+.product-card .add-to-cart-form {
+  position: absolute;
+  bottom: -60px;
+  left: 0;
+  width: 100%;
+  padding: 0 15px 15px;
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  z-index: 10;
+}
+.product-card:hover .add-to-cart-form {
+  bottom: 0px;
+  opacity: 1;
+}
+
+/* Marquee / Announcement Bar */
+.xophia-announcement-bar {
+  background: #111;
+  color: #fff;
+  padding: 8px 0;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 13px;
+  letter-spacing: 2px;
+  font-weight: 600;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  position: relative;
+  z-index: 1001;
+}
+.marquee-content {
+  display: inline-block;
+  animation: marquee 25s linear infinite;
+  padding-left: 100%;
+}
+.marquee-content span {
+  display: inline-block;
+}
+.marquee-content .dot {
+  color: -accent;
+  margin: 0 25px;
+}
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+/* Video Hero Styles */
+.video-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 180px 20px;
+  background-image: none !important;
+  border-radius: 0;
+  margin: 0;
+}
+.hero-video-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: 0;
+  transform: translateX(-50%) translateY(-50%);
+  object-fit: cover;
+}
+.hero-overlay {
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  background: linear-gradient(135deg, rgba(30,30,30,0.6) 0%, rgba(122,139,106,0.5) 100%);
+  z-index: 1;
+}
+.video-hero .glass-panel {
+  box-shadow: 0 25px 50px rgba(0,0,0,0.3) !important;
+  border-radius: 30px !important;
+  padding: 60px 40px;
+}
