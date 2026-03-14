@@ -1,176 +1,111 @@
 <!-- /templates/cart.liquid -->
-{% comment %}
+<div class="premium-cart-page container">
+  <div class="cart-header">
+    <h1 class="cart-title">Your Order Summary</h1>
+    <a href="/collections/all" class="continue-shopping">Enrich Your Home &rarr;</a>
+  </div>
 
-  For info on test orders:
-    - General http://docs.shopify.com/manual/your-store/orders/test-orders
-    - Shopify Payments - http://docs.shopify.com/manual/more/shopify-payments/testing-shopify-payments
-
-{% endcomment %}
-
-{% if cart.item_count > 0 %}
-
-  <h1>{{ 'cart.general.title' | t }}</h1>
-  <form action="/cart" method="post" novalidate class="cart table-wrap">
-    <table class="cart-table full table--responsive">
-      <thead class="cart__row cart__header-labels">
-        <th colspan="2" class="text-center">{{ 'cart.label.product' | t }}</th>
-        <th class="text-center">{{ 'cart.label.price' | t }}</th>
-        <th class="text-center">{{ 'cart.label.quantity' | t }}</th>
-        <th class="text-right">{{ 'cart.label.total' | t }}</th>
-      </thead>
-      <tbody>
+  {% if cart.item_count > 0 %}
+    <form action="/cart" method="post" novalidate class="cart-layout-grid">
+      <!-- Cart Items -->
+      <div class="cart-items-column">
         {% for item in cart.items %}
-          <tr class="cart__row table__section">
-            <td data-label="{{ 'customer.order.product' | t }}">
-              <a href="{{ item.url | within: collections.all }}" class="cart__image">
-                {% comment %}
-                  More image size options at:
-                    - http://docs.shopify.com/themes/filters/product-img-url
-                {% endcomment %}
-                <img src="{{ item | img_url: 'medium' }}" alt="{{ item.title | escape }}">
-              </a>
-            </td>
-            <td>
-              <a href="{{ item.url }}" class="h4">
-                {{ item.product.title }}
-              </a>
+          <div class="cart-item-premium glass-panel" style="padding: 20px; border-radius: 16px; margin-bottom: 20px;">
+            <div class="ci-image">
+              <a href="{{ item.url }}"><img src="{{ item | img_url: 'medium' }}" alt="{{ item.title | escape }}"></a>
+            </div>
+            <div class="ci-details">
+              <a href="{{ item.url }}" class="ci-title">{{ item.product.title }}</a>
               {% unless item.variant.title contains 'Default' %}
-                <br>
-                <small>{{ item.variant.title }}</small>
+                <div class="ci-variant">{{ item.variant.title }}</div>
               {% endunless %}
-
-              {% if settings.cart_vendor_enable %}
-                <p>{{ item.vendor }}</p>
-              {% endif %}
-
-              {% comment %}
-                Optional, loop through custom product line items if available
-
-                For more info on line item properties, visit:
-                  - http://docs.shopify.com/support/your-store/products/how-do-I-collect-additional-information-on-the-product-page-Like-for-a-monogram-engraving-or-customization
-              {% endcomment %}
-              {% assign property_size = item.properties | size %}
-              {% if property_size > 0 %}
-                {% for p in item.properties %}
-                  {% unless p.last == blank %}
-                    {{ p.first }}:
-
-                    {% comment %}
-                      Check if there was an uploaded file associated
-                    {% endcomment %}
-                    {% if p.last contains '/uploads/' %}
-                      <a href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
-                    {% else %}
-                      {{ p.last }}
-                    {% endif %}
-
-                    <br>
-                  {% endunless %}
-                {% endfor %}
-              {% endif %}
-
-              <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="cart__remove">
-                <small>{{ 'cart.general.remove' | t }}</small>
-              </a>
-            </td>
-            <td data-label="{{ 'cart.label.price' | t }}">
-              <span class="h3">
-                {{ item.price | money }}
-              </span>
-            </td>
-            <td data-label="{{ 'cart.label.quantity' | t }}">
-              <input type="number" name="updates[]" id="updates_{{ item.key }}" data-id="{{ item.key }}" value="{{ item.quantity }}" min="0">
-            </td>
-            <td data-label="{{ 'cart.label.total' | t }}" class="text-right">
-              {% if item.original_line_price != item.line_price %}
-                <span class="cart-item__original-price"><s>{{ item.original_line_price | money }}</s></span>
-              {% endif %}
-              <span class="h3">
-                {{ item.line_price | money }}
-              </span>
-              {% for discount in item.discounts %}
-                <span class="cart-item__discount">{{ discount.title }}</span>
-              {% endfor %}
-            </td>
-          </tr>
+              <div class="ci-price">{{ item.price | money }}</div>
+              
+              <div class="ci-actions">
+                <input type="number" name="updates[]" id="updates_{{ item.key }}" data-id="{{ item.key }}" value="{{ item.quantity }}" min="0" class="ci-qty">
+                <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="ci-remove">Remove / Xóa</a>
+              </div>
+            </div>
+            <div class="ci-total">
+              {{ item.line_price | money }}
+            </div>
+          </div>
         {% endfor %}
-      </tbody>
-    </table>
-    <div class="grid cart__row">
-      {% if settings.cart_notes_enable %}
-        <div class="grid__item two-thirds small--one-whole">
-          <label for="CartSpecialInstructions">{{ 'cart.general.note' | t }}</label>
-          <textarea name="note" class="input-full" id="CartSpecialInstructions">{{ cart.note }}</textarea>
-        </div>
-      {% endif %}
-      <div class="grid__item text-right{% if settings.cart_notes_enable %} one-third small--one-whole{% endif %}">
-        <p>
-          <span class="cart__subtotal-title">{{ 'cart.general.subtotal' | t }}</span>
-          <span class="h3 cart__subtotal">{{ cart.total_price | money }}</span>
-        </p>
-        {% if cart.total_discounts > 0 %}
-          {% assign savings = cart.total_discounts | money %}
-          <p>
-            <span class="cart-subtotal__savings"><em>{{ 'cart.general.savings_html' | t: price: savings }}</em></span>
-          </p>
-        {% endif %}
-        <p><em>{{ 'cart.general.shipping_at_checkout' | t }}</em></p>
+      </div>
+
+      <!-- Order Summary Column -->
+      <div class="cart-summary-column glass-panel">
+        <h3 class="summary-title">Summary</h3>
         
-        <!-- --- NEW: Payment Method Selector --- -->
-        <div class="payment-selector">
-          <h4>Select Payment Method</h4>
+        <div class="summary-row">
+          <span>Subtotal</span>
+          <span>{{ cart.total_price | money }}</span>
+        </div>
+        
+        {% if cart.total_discounts > 0 %}
+          <div class="summary-row" style="color: #7A8B6A;">
+            <span>Discounts</span>
+            <span>-{{ cart.total_discounts | money }}</span>
+          </div>
+        {% endif %}
+        
+        <div class="summary-row shipping-row">
+          <span>Shipping (Phí Vận Chuyển)</span>
+          <span style="color: #7A8B6A; font-weight: 800; font-size: 20px; text-transform: uppercase;">0 Đồng</span>
+        </div>
+
+        <div class="summary-row total-row">
+          <span>Total / Tổng Tiền</span>
+          <span class="h3">{{ cart.total_price | money }}</span>
+        </div>
+
+        <!-- Payment Method Selector -->
+        <div class="payment-selector" style="box-shadow: none; padding: 0; background: transparent; margin-bottom: 25px;">
+          <h4 style="margin-top:0;">Payment Method</h4>
           <div class="payment-options">
-            <!-- COD Option -->
             <label>
               <input type="radio" name="attributes[Payment_Method]" value="Cash on Delivery (COD)" required checked>
               <div class="payment-option-label">
                 <div class="po-left">
                   <div class="po-radio-circle"></div>
                   <div>
-                    <div class="po-text">Cash on Delivery (COD)</div>
-                    <div class="po-desc">Pay when you receive your order</div>
+                    <div class="po-text">Thanh toán khi nhận hàng (COD)</div>
                   </div>
-                </div>
-                <div class="po-icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
                 </div>
               </div>
             </label>
-            
-            <!-- PayPal Option -->
             <label>
               <input type="radio" name="attributes[Payment_Method]" value="PayPal">
               <div class="payment-option-label">
                 <div class="po-left">
                   <div class="po-radio-circle"></div>
                   <div>
-                    <div class="po-text">PayPal</div>
-                    <div class="po-desc">Secure online payment</div>
+                    <div class="po-text">Thẻ tín dụng / PayPal Online</div>
                   </div>
-                </div>
-                <div class="po-icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-                  </svg>
                 </div>
               </div>
             </label>
           </div>
         </div>
-        <!-- --- End Payment Method Selector --- -->
 
-        <button type="submit" name="update" class="btn--secondary update-cart" style="display: none;">{{ 'cart.general.update' | t }}</button>
-        <button type="submit" name="checkout" class="btn checkout-btn">Proceed to Checkout &rarr;</button>
+        <p class="cart-note-label">Special instructions (Ghi chú thêm):</p>
+        <textarea name="note" class="cart-note-input" placeholder="Type here...">{{ cart.note }}</textarea>
+
+        <button type="submit" name="update" class="btn--secondary update-cart" style="display: none;">Update</button>
+        <button type="submit" name="checkout" class="btn checkout-btn">Complete Order / Thanh Toán &rarr;</button>
+        
+        <div class="trust-badges-cart">
+          <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg> 
+          Encrypted & Secure SSL Checkout
+        </div>
       </div>
+    </form>
+  {% else %}
+    <div class="empty-cart-message text-center" style="padding: 120px 0;">
+      <svg style="width: 80px; height: 80px; color: #E8E8E8; margin: 0 auto 30px;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+      <h2 style="font-size: 32px; font-weight: 800; margin-bottom: 20px;">Your cart feels light.</h2>
+      <p style="color: #666; font-size: 18px; margin-bottom: 40px;">Step inside and discover our premium essentials.</p>
+      <a href="/collections/all" class="btn checkout-btn" style="width: auto; padding: 18px 50px; display: inline-block;">Explore Collection</a>
     </div>
-  </form>
-{% else %}
-  {% comment %}
-    The cart is empty
-  {% endcomment %}
-  <h2>{{ 'cart.general.title' | t }}</h2>
-  <p>{{ 'cart.general.empty' | t }}</p>
-  <p>{{ 'cart.general.continue_browsing_html' | t }}</p>
-{% endif %}
+  {% endif %}
+</div>
