@@ -2,10 +2,10 @@
 
 <!-- Hero Section -->
 <section class="hero-section">
-  <div class="hero-content">
+  <div class="hero-content glass-panel" style="background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(12px);">
     <h1 class="hero-title">Smart Home Essentials for Everyday Life</h1>
     <p class="hero-subtitle">Practical tools designed to simplify your daily routine</p>
-    <a href="/collections/all" class="btn">Shop Now</a>
+    <a href="/collections/all" class="btn" style="background: #E07A5F; color: #fff; border-radius: 30px; padding: 16px 36px; font-weight: 600; font-size: 16px; letter-spacing: 0.5px; box-shadow: 0 10px 20px rgba(224, 122, 95, 0.3);">Shop Now</a>
   </div>
 </section>
 
@@ -37,6 +37,43 @@
         </div>
         <div class="trust-text">10,000+ Happy Customers</div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- Shop by Category -->
+<section style="padding: 80px 0; background-color: #FAFAFA;">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Shop by Room</h2>
+      <p style="color: var(--color-text-light);">Curated essentials for every space in your home.</p>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+      
+      <a href="/collections/kitchen" style="position: relative; border-radius: 16px; overflow: hidden; display: block; aspect-ratio: 4/5; text-decoration: none; box-shadow: 0 10px 30px rgba(0,0,0,0.06); transition: transform 0.4s ease;">
+        <img style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease;" src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?q=80&w=2670&auto=format&fit=crop" alt="Kitchen" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+        <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 30px 20px; background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);">
+          <h3 style="color: #fff; margin: 0; font-size: 24px; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">The Kitchen</h3>
+          <span style="color: rgba(255,255,255,0.8); font-size: 14px;">Explore 120+ Products &rarr;</span>
+        </div>
+      </a>
+
+      <a href="/collections/bathroom" style="position: relative; border-radius: 16px; overflow: hidden; display: block; aspect-ratio: 4/5; text-decoration: none; box-shadow: 0 10px 30px rgba(0,0,0,0.06); transition: transform 0.4s ease;">
+        <img style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease;" src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=2670&auto=format&fit=crop" alt="Bathroom" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+        <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 30px 20px; background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);">
+          <h3 style="color: #fff; margin: 0; font-size: 24px; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">The Bathroom</h3>
+          <span style="color: rgba(255,255,255,0.8); font-size: 14px;">Explore 85+ Products &rarr;</span>
+        </div>
+      </a>
+
+      <a href="/collections/laundry" style="position: relative; border-radius: 16px; overflow: hidden; display: block; aspect-ratio: 4/5; text-decoration: none; box-shadow: 0 10px 30px rgba(0,0,0,0.06); transition: transform 0.4s ease;">
+        <img style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease;" src="https://images.unsplash.com/photo-1545173168-9f1947eebb7f?q=80&w=2671&auto=format&fit=crop" alt="Laundry" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+        <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 30px 20px; background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);">
+          <h3 style="color: #fff; margin: 0; font-size: 24px; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">Laundry & Utility</h3>
+          <span style="color: rgba(255,255,255,0.8); font-size: 14px;">Explore 40+ Products &rarr;</span>
+        </div>
+      </a>
+
     </div>
   </div>
 </section>
