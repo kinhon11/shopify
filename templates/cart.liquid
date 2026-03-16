@@ -69,13 +69,18 @@
 
           <div class="ed-payment">
             <label>
-              <input type="radio" name="attributes[Payment_Method]" value="Cash on Delivery (COD)" checked>
+              <input type="radio" name="attributes[Payment_Method]" value="Cash on Delivery (COD)" checked id="pay-cod">
               Paga alla Consegna (COD)
             </label>
             <label>
-              <input type="radio" name="attributes[Payment_Method]" value="PayPal / Credit Card">
+              <input type="radio" name="attributes[Payment_Method]" value="PayPal / Credit Card" id="pay-card">
               Carta di Credito / PayPal
             </label>
+            
+            <div id="cod-warning" style="background-color: #fbf8f1; border-left: 3px solid #B88645; padding: 15px; margin-top: 15px; font-size: 12px; line-height: 1.5;">
+              <strong style="display: block; margin-bottom: 5px; color: #B88645;">⚠️ Attenzione: Verifica dell'Ordine</strong>
+              Scegliendo il Pagamento alla Consegna, il nostro Call Center ti contatterà tramite WhatsApp o chiamata telefonica per confermare i dettagli prima della spedizione.
+            </div>
           </div>
 
           <p style="font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px;">Note dell'ordine (Opzionale):</p>
@@ -94,3 +99,25 @@
     </div>
   {% endif %}
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var codRadio = document.getElementById('pay-cod');
+    var cardRadio = document.getElementById('pay-card');
+    var codWarning = document.getElementById('cod-warning');
+    
+    function toggleWarning() {
+      if(codRadio && codRadio.checked) {
+        codWarning.style.display = 'block';
+      } else {
+        codWarning.style.display = 'none';
+      }
+    }
+    
+    if(codRadio && cardRadio) {
+      codRadio.addEventListener('change', toggleWarning);
+      cardRadio.addEventListener('change', toggleWarning);
+      toggleWarning();
+    }
+  });
+</script>

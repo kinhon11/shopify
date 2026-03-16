@@ -66,13 +66,15 @@
     {% assign collection = collections['all'] %}
     {% for product in collection.products limit: 8 %}
       <div class="prod-card">
-        <a href="{{ product.url | within: collection }}" class="prod-img">
-          <img src="{{ product.featured_image.src | img_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}">
+        <div class="prod-img">
+          <a href="{{ product.url | within: collection }}" style="display:block; height:100%;">
+            <img src="{{ product.featured_image.src | img_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}">
+          </a>
           <form action="/cart/add" method="post" class="prod-quick-add-form">
             <input type="hidden" name="id" value="{{ product.variants.first.id }}">
             <button type="submit" class="prod-quick-add">Aggiungi Rapido</button>
           </form>
-        </a>
+        </div>
         <span class="prod-brand">{{ product.vendor | default: "Xophia Exclusive" }}</span>
         <a href="{{ product.url | within: collection }}" class="prod-title">{{ product.title }}</a>
         <div class="prod-price">{{ product.price | money }}</div>
