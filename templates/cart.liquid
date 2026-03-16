@@ -1,8 +1,8 @@
 <!-- /templates/cart.liquid -->
 <div class="premium-cart-page container">
   <div class="cart-header">
-    <h1 class="cart-title">Your Order Summary</h1>
-    <a href="/collections/all" class="continue-shopping">Enrich Your Home &rarr;</a>
+    <h1 class="cart-title">Riepilogo del Tuo Ordine</h1>
+    <a href="/collections/all" class="continue-shopping">Continua gli acquisti &rarr;</a>
   </div>
 
   {% if cart.item_count > 0 %}
@@ -23,7 +23,7 @@
               
               <div class="ci-actions">
                 <input type="number" name="updates[]" id="updates_{{ item.key }}" data-id="{{ item.key }}" value="{{ item.quantity }}" min="0" class="ci-qty">
-                <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="ci-remove">Remove / Xóa</a>
+                <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="ci-remove">Rimuovi</a>
               </div>
             </div>
             <div class="ci-total">
@@ -35,33 +35,33 @@
 
       <!-- Order Summary Column -->
       <div class="cart-summary-column glass-panel">
-        <h3 class="summary-title">Summary</h3>
+        <h3 class="summary-title">Riepilogo</h3>
         
         <div class="summary-row">
-          <span>Subtotal</span>
+          <span>Subtotale</span>
           <span>{{ cart.total_price | money }}</span>
         </div>
         
         {% if cart.total_discounts > 0 %}
           <div class="summary-row" style="color: #7A8B6A;">
-            <span>Discounts</span>
+            <span>Sconti</span>
             <span>-{{ cart.total_discounts | money }}</span>
           </div>
         {% endif %}
         
         <div class="summary-row shipping-row">
-          <span>Shipping (Phí Vận Chuyển)</span>
-          <span style="color: #7A8B6A; font-weight: 800; font-size: 20px; text-transform: uppercase;">0 Đồng</span>
+          <span>Spedizione</span>
+          <span style="color: #7A8B6A; font-weight: 800; font-size: 20px; text-transform: uppercase;">0 Euro</span>
         </div>
 
         <div class="summary-row total-row">
-          <span>Total / Tổng Tiền</span>
+          <span>Totale</span>
           <span class="h3">{{ cart.total_price | money }}</span>
         </div>
 
         <!-- Payment Method Selector -->
         <div class="payment-selector" style="box-shadow: none; padding: 0; background: transparent; margin-bottom: 25px;">
-          <h4 style="margin-top:0;">Payment Method</h4>
+          <h4 style="margin-top:0;">Metodo di Pagamento</h4>
           <div class="payment-options">
             <label>
               <input type="radio" name="attributes[Payment_Method]" value="Cash on Delivery (COD)" required checked>
@@ -69,7 +69,7 @@
                 <div class="po-left">
                   <div class="po-radio-circle"></div>
                   <div>
-                    <div class="po-text">Thanh toán khi nhận hàng (COD)</div>
+                    <div class="po-text">Pagamento alla consegna (COD)</div>
                   </div>
                 </div>
               </div>
@@ -80,7 +80,7 @@
                 <div class="po-left">
                   <div class="po-radio-circle"></div>
                   <div>
-                    <div class="po-text">Thẻ tín dụng / PayPal Online</div>
+                    <div class="po-text">Carta di Credito / PayPal</div>
                   </div>
                 </div>
               </div>
@@ -88,24 +88,24 @@
           </div>
         </div>
 
-        <p class="cart-note-label">Special instructions (Ghi chú thêm):</p>
-        <textarea name="note" class="cart-note-input" placeholder="Type here...">{{ cart.note }}</textarea>
+        <p class="cart-note-label">Istruzioni speciali:</p>
+        <textarea name="note" class="cart-note-input" placeholder="Scrivi qui...">{{ cart.note }}</textarea>
 
-        <button type="submit" name="update" class="btn--secondary update-cart" style="display: none;">Update</button>
-        <button type="submit" name="checkout" class="btn checkout-btn">Complete Order / Thanh Toán &rarr;</button>
+        <button type="submit" name="update" class="btn--secondary update-cart" style="display: none;">Aggiorna</button>
+        <button type="submit" name="checkout" class="btn checkout-btn">Completa l'Ordine &rarr;</button>
         
         <div class="trust-badges-cart">
           <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg> 
-          Encrypted & Secure SSL Checkout
+          Pagamento Sicuro Crittografato SSL
         </div>
       </div>
     </form>
   {% else %}
     <div class="empty-cart-message text-center" style="padding: 120px 0;">
       <svg style="width: 80px; height: 80px; color: #E8E8E8; margin: 0 auto 30px;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
-      <h2 style="font-size: 32px; font-weight: 800; margin-bottom: 20px;">Your cart feels light.</h2>
-      <p style="color: #666; font-size: 18px; margin-bottom: 40px;">Step inside and discover our premium essentials.</p>
-      <a href="/collections/all" class="btn checkout-btn" style="width: auto; padding: 18px 50px; display: inline-block;">Explore Collection</a>
+      <h2 style="font-size: 32px; font-weight: 800; margin-bottom: 20px;">Il tuo carrello è vuoto.</h2>
+      <p style="color: #666; font-size: 18px; margin-bottom: 40px;">Entra e scopri i nostri articoli essenziali premium.</p>
+      <a href="/collections/all" class="btn checkout-btn" style="width: auto; padding: 18px 50px; display: inline-block;">Esplora la Collezione</a>
     </div>
   {% endif %}
 </div>

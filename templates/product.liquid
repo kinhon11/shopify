@@ -27,7 +27,7 @@
     <div class="product-details-sticky">
       <div class="product-meta">
         <h1 class="product-title-large" itemprop="name">{{ product.title }}</h1>
-        <div class="product-reviews-badge">★★★★★ <span class="review-count">(128 reviews)</span></div>
+        <div class="product-reviews-badge">★★★★★ <span class="review-count">(128 recensioni)</span></div>
         
         <div class="product-price-large" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
           <meta itemprop="priceCurrency" content="{{ shop.currency }}">
@@ -36,7 +36,7 @@
           <span id="ProductPrice" class="current-price">{{ current_variant.price | money }}</span>
           {% if product.compare_at_price_max > product.price %}
             <s id="ComparePrice" class="old-price">{{ current_variant.compare_at_price | money }}</s>
-            <span class="sale-badge">Sale</span>
+            <span class="sale-badge">Saldi</span>
           {% endif %}
         </div>
       </div>
@@ -51,7 +51,7 @@
             {% if variant.available %}
               <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} data-sku="{{ variant.sku }}" value="{{ variant.id }}">{{ variant.title }}</option>
             {% else %}
-              <option disabled="disabled">{{ variant.title }} - Sold Out</option>
+              <option disabled="disabled">{{ variant.title }} - Esaurito</option>
             {% endif %}
           {% endfor %}
         </select>
@@ -72,11 +72,11 @@
       <div class="product-trust-box">
         <div class="trust-row">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" /></svg>
-          <span><strong>Free Shipping:</strong> 0 Đồng (Zero Shipping Fees)</span>
+          <span><strong>Spedizione Gratuita:</strong> 0 Euro (Nessun costo di spedizione)</span>
         </div>
         <div class="trust-row">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
-          <span><strong>30-Day Guarantee:</strong> Easy returns & refunds</span>
+          <span><strong>Garanzia 30 giorni:</strong> Resi e rimborsi facili</span>
         </div>
       </div>
     </div>
