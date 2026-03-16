@@ -57,14 +57,20 @@
             </div>
           {% endif %}
           
-          <div class="ed-summary-row">
+          <div class="ed-summary-row" id="shipping-row">
             <span>Spedizione in Italia</span>
-            <span style="font-weight: 600;">Gratuita (0€)</span>
+            <span style="font-weight: 600; color: #E64B77;">GRATIS</span>
+          </div>
+
+          <!-- Dynamic COD Fee Row (Hidden by default) -->
+          <div class="ed-summary-row" id="cod-fee-row" style="display: none; color: #E64B77;">
+            <span>Commissione Contrassegno</span>
+            <span style="font-weight: 600;">2,00 €</span>
           </div>
 
           <div class="ed-summary-row ed-summary-total">
-            <span>Totale</span>
-            <span>{{ cart.total_price | money }}</span>
+            <span id="total-text-label">Totale</span>
+            <span id="cart-total-price" data-base-price="{{ cart.total_price }}">{{ cart.total_price | money }}</span>
           </div>
 
           <!-- ECOBIO STYLE INTERACTIVE PAYMENT SELECTOR -->
@@ -103,7 +109,7 @@
               <label class="pm-row" id="pm-row-cod">
                 <div class="pm-header">
                   <input type="radio" name="attributes[Payment_Method]" value="Cash on Delivery (COD)" id="pay-cod">
-                  <div class="pm-text">Contrassegno</div>
+                  <div class="pm-text">Contrassegno (+2€)</div>
                   <div class="pm-icons">
                   </div>
                 </div>
@@ -141,6 +147,22 @@
     var rowCard = document.getElementById('pm-row-card');
     var rowPaypal = document.getElementById('pm-row-paypal');
 
+    var cartTotalEl = document.getElementById('cart-total-price');
+    var totalTextLabel = document.getElementById('total-text-label');
+    var codFeeRow = document.getElementById('cod-fee-row');
+    
+    // Shopify stores money in cents
+    var basePriceCents = parseInt(cartTotalEl.getAttribute('data-base-price'));
+    var moneyFormat = "{{ shop.money_format | default: '€{{amount_with_comma_separator}}' }}";
+
+    // Basic money formatter if Shopify object isn't available
+    function formatMoney(cents) {
+      if (typeof Shopify !== 'undefined' && Shopify.formatMoney) {
+        return Shopify.formatMoney(cents, moneyFormat);
+      }
+      return '€' + (cents / 100).toFixed(2).replace('.', ',');
+    }
+
     function updatePaymentUI() {
       // Remove active class from all rows
       if(rowCod) rowCod.classList.remove('is-active');
@@ -150,10 +172,18 @@
       // Add active class dynamically
       if(codRadio && codRadio.checked) {
         if(rowCod) rowCod.classList.add('is-active');
-      } else if (cardRadio && cardRadio.checked) {
-        if(rowCard) rowCard.classList.add('is-active');
-      } else if (paypalRadio && paypalRadio.checked) {
-        if(rowPaypal) rowPaypal.classList.add('is-active');
+        if(codFeeRow) codFeeRow.style.display = 'flex';
+        if(totalTextLabel) totalTextLabel.innerHTML = 'Totale con Contrassegno<br><small style="font-size:11px; color:#999; text-transform:none; font-weight:normal;">(Inclusa commissione 2€)</small>';
+        if(cartTotalEl) cartTotalEl.innerHTML = formatMoney(basePriceCents + 200); // Add 200 cents (2 Euros)
+      } else {
+        if (cardRadio && cardRadio.checked) {
+          if(rowCard) rowCard.classList.add('is-active');
+        } else if (paypalRadio && paypalRadio.checked) {
+          if(rowPaypal) rowPaypal.classList.add('is-active');
+        }
+        if(codFeeRow) codFeeRow.style.display = 'none';
+        if(totalTextLabel) totalTextLabel.innerHTML = 'Totale';
+        if(cartTotalEl) cartTotalEl.innerHTML = formatMoney(basePriceCents);
       }
     }
     
