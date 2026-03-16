@@ -153,7 +153,7 @@
     
     // Shopify stores money in cents
     var basePriceCents = parseInt(cartTotalEl.getAttribute('data-base-price'));
-    var moneyFormat = "{{ shop.money_format | default: '€{{amount_with_comma_separator}}' }}";
+    var moneyFormat = {{ shop.money_format | json }} || "€{% raw %}{{amount_with_comma_separator}}{% endraw %}";
 
     // Basic money formatter if Shopify object isn't available
     function formatMoney(cents) {
