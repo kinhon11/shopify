@@ -594,3 +594,73 @@ a:hover {
   display: block; margin-bottom: 15px; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; border: 1px solid $color-border; padding: 15px; cursor: pointer;
 }
 .ed-payment input { margin-right: 15px; }
+
+
+/* ==========================================================================
+   INTERACTIVE PAYMENT SELECTOR (ECOBIO STYLE + EDITORIAL ADAPTATION)
+   ========================================================================== */
+.ed-payment-selector {
+  border: 1px solid -border;
+  margin-bottom: 40px;
+  background: #fff;
+}
+.pm-row {
+  display: block;
+  border-bottom: 1px solid -border;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.pm-row:last-child {
+  border-bottom: none;
+}
+.pm-row.is-active {
+  background: #FAFAFA;
+}
+.pm-header {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+}
+.pm-header input[type='radio'] {
+  margin: 0 15px 0 0;
+  width: 16px;
+  height: 16px;
+  accent-color: -accent;
+  cursor: pointer;
+}
+.pm-text {
+  flex: 1;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.pm-icons {
+  display: flex;
+  gap: 6px;
+}
+.pm-icon {
+  border: 1px solid -border;
+  font-size: 9px;
+  padding: 3px 6px;
+  border-radius: 2px;
+  font-weight: 600;
+  color: -text;
+  letter-spacing: 0.5px;
+  background: #fff;
+}
+.pm-content {
+  padding: 0 20px 20px 50px;
+  font-size: 13px;
+  color: -text-light;
+  line-height: 1.6;
+  display: none;
+}
+.pm-row.is-active .pm-content {
+  display: block;
+}
+.pm-content strong {
+  color: -accent;
+  display: block;
+  margin-bottom: 5px;
+}

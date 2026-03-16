@@ -67,20 +67,40 @@
             <span>{{ cart.total_price | money }}</span>
           </div>
 
-          <div class="ed-payment">
-            <label>
-              <input type="radio" name="attributes[Payment_Method]" value="Cash on Delivery (COD)" checked id="pay-cod">
-              Paga alla Consegna (COD)
-            </label>
-            <label>
-              <input type="radio" name="attributes[Payment_Method]" value="PayPal / Credit Card" id="pay-card">
-              Carta di Credito / PayPal
-            </label>
+          <!-- ECOBIO STYLE INTERACTIVE PAYMENT SELECTOR -->
+          <div class="ed-payment-selector">
             
-            <div id="cod-warning" style="background-color: #fbf8f1; border-left: 3px solid #B88645; padding: 15px; margin-top: 15px; font-size: 12px; line-height: 1.5;">
-              <strong style="display: block; margin-bottom: 5px; color: #B88645;">⚠️ Attenzione: Verifica dell'Ordine</strong>
-              Scegliendo il Pagamento alla Consegna, il nostro Call Center ti contatterà tramite WhatsApp o chiamata telefonica per confermare i dettagli prima della spedizione.
-            </div>
+            <!-- COD ROW -->
+            <label class="pm-row is-active" id="pm-row-cod">
+              <div class="pm-header">
+                <input type="radio" name="attributes[Payment_Method]" value="Cash on Delivery (COD)" checked id="pay-cod">
+                <div class="pm-text">Contrassegno (+0€)</div>
+                <div class="pm-icons">
+                  <span class="pm-icon">COD</span>
+                </div>
+              </div>
+              <div class="pm-content">
+                <strong>⚠️ Attenzione: Verifica dell'Ordine</strong>
+                Paga comodamente i tuoi prodotti direttamente al corriere al momento della consegna. Senza costi aggiuntivi. Il nostro Call Center ti contatterà tramite WhatsApp per confermare i dettagli in massima sicurezza e privacy svizzera.
+              </div>
+            </label>
+
+            <!-- CARD ROW -->
+            <label class="pm-row" id="pm-row-card">
+              <div class="pm-header">
+                <input type="radio" name="attributes[Payment_Method]" value="PayPal / Credit Card" id="pay-card">
+                <div class="pm-text">Carta di Credito / PayPal</div>
+                <div class="pm-icons">
+                  <span class="pm-icon">VISA</span>
+                  <span class="pm-icon">MC</span>
+                  <span class="pm-icon">PAYPAL</span>
+                </div>
+              </div>
+              <div class="pm-content">
+                Transazione sicura e crittografata al 100%. Verrai reindirizzato in totale sicurezza al gateway di pagamento del nostro partner dopo aver cliccato "Procedi".
+              </div>
+            </label>
+
           </div>
 
           <p style="font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px;">Note dell'ordine (Opzionale):</p>
@@ -104,20 +124,28 @@
   document.addEventListener('DOMContentLoaded', function() {
     var codRadio = document.getElementById('pay-cod');
     var cardRadio = document.getElementById('pay-card');
-    var codWarning = document.getElementById('cod-warning');
     
-    function toggleWarning() {
+    var rowCod = document.getElementById('pm-row-cod');
+    var rowCard = document.getElementById('pm-row-card');
+
+    function updatePaymentUI() {
+      // Remove active class from both rows
+      if(rowCod) rowCod.classList.remove('is-active');
+      if(rowCard) rowCard.classList.remove('is-active');
+      
+      // Add active class dynamically
       if(codRadio && codRadio.checked) {
-        codWarning.style.display = 'block';
-      } else {
-        codWarning.style.display = 'none';
+        if(rowCod) rowCod.classList.add('is-active');
+      } else if (cardRadio && cardRadio.checked) {
+        if(rowCard) rowCard.classList.add('is-active');
       }
     }
     
     if(codRadio && cardRadio) {
-      codRadio.addEventListener('change', toggleWarning);
-      cardRadio.addEventListener('change', toggleWarning);
-      toggleWarning();
+      codRadio.addEventListener('change', updatePaymentUI);
+      cardRadio.addEventListener('change', updatePaymentUI);
+      // Initialize states
+      updatePaymentUI();
     }
   });
 </script>
