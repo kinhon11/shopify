@@ -30,7 +30,9 @@
   <!-- CSS ================================================== -->
   {{ 'timber.scss.css' | asset_url | stylesheet_tag }}
   {{ 'xophia.scss.css' | asset_url | stylesheet_tag }}
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <!-- Header hook for plugins ================================================== -->
   {{ content_for_header }}
@@ -176,14 +178,7 @@
             </a>
           {% else %}
             <a href="/" itemprop="url" class="xophia-text-logo">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="currentColor">
-                <!-- Luxurious abstract X -->
-                <path d="M25 20 L40 20 L75 80 L60 80 Z" />
-                <path d="M75 20 L60 20 L25 80 L40 80 Z" opacity="0.6"/>
-                <!-- Circle Frame -->
-                <circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" stroke-width="3" opacity="0.3"/>
-              </svg>
-              <span class="logo-text">Xophia</span>
+              <span class="logo-text">X O P H I A</span>
             </a>
           {% endif %}
         </div>
