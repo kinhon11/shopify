@@ -68,39 +68,51 @@
           </div>
 
           <!-- ECOBIO STYLE INTERACTIVE PAYMENT SELECTOR -->
-          <div class="ed-payment-selector">
-            
-            <!-- COD ROW -->
-            <label class="pm-row is-active" id="pm-row-cod">
-              <div class="pm-header">
-                <input type="radio" name="attributes[Payment_Method]" value="Cash on Delivery (COD)" checked id="pay-cod">
-                <div class="pm-text">Contrassegno (+0€)</div>
-                <div class="pm-icons">
-                  <span class="pm-icon">COD</span>
-                </div>
-              </div>
-              <div class="pm-content">
-                <strong>⚠️ Attenzione: Verifica dell'Ordine</strong>
-                Paga comodamente i tuoi prodotti direttamente al corriere al momento della consegna. Senza costi aggiuntivi. Il nostro Call Center ti contatterà tramite WhatsApp per confermare i dettagli in massima sicurezza e privacy svizzera.
-              </div>
-            </label>
+          <div class="ed-payment" style="margin-top: 30px;">
+            <p style="font-size: 18px; font-weight: 500; margin-bottom: 5px;">Pagamento</p>
+            <p style="font-size: 13px; color: #666; margin-bottom: 20px;">Tutte le transazioni sono sicure e crittografate.</p>
 
-            <!-- CARD ROW -->
-            <label class="pm-row" id="pm-row-card">
-              <div class="pm-header">
-                <input type="radio" name="attributes[Payment_Method]" value="PayPal / Credit Card" id="pay-card">
-                <div class="pm-text">Carta di Credito / PayPal</div>
-                <div class="pm-icons">
-                  <span class="pm-icon">VISA</span>
-                  <span class="pm-icon">MC</span>
-                  <span class="pm-icon">PAYPAL</span>
+            <div class="ed-payment-selector">
+              <!-- CARD ROW -->
+              <label class="pm-row is-active" id="pm-row-card">
+                <div class="pm-header">
+                  <input type="radio" name="attributes[Payment_Method]" value="Carta di Credito" id="pay-card" checked>
+                  <div class="pm-text">Carta di credito</div>
+                  <div class="pm-icons">
+                    <span class="pm-icon"><img src="https://cdn.shopify.com/s/assets/payment_icons/visa-319d545c6fd255c9aad5eeaad21fd6f7f7b4fdbdb1a35ce83b89cca12a187f00.svg" alt="Visa"></span>
+                    <span class="pm-icon"><img src="https://cdn.shopify.com/s/assets/payment_icons/master-173035bc8124581983d4efa50cf8626e8553c2b311353fbf67485f9c1a2b88d1.svg" alt="Mastercard"></span>
+                    <span class="pm-icon"><img src="https://cdn.shopify.com/s/assets/payment_icons/maestro-d2055c6b19beadafd77d501cb48aec79895c11bc32eccc3f859bdcbadd65fd7e.svg" alt="Maestro"></span>
+                  </div>
                 </div>
-              </div>
-              <div class="pm-content">
-                Transazione sicura e crittografata al 100%. Verrai reindirizzato in totale sicurezza al gateway di pagamento del nostro partner dopo aver cliccato "Procedi".
-              </div>
-            </label>
+                <div class="pm-content">
+                  <!-- No text needed for Card by default on EcoBio, but keeping standard Shopify safe. -->
+                </div>
+              </label>
 
+              <!-- PAYPAL ROW -->
+              <label class="pm-row" id="pm-row-paypal">
+                <div class="pm-header">
+                  <input type="radio" name="attributes[Payment_Method]" value="PayPal" id="pay-paypal">
+                  <div class="pm-text">PayPal</div>
+                  <div class="pm-icons">
+                    <span class="pm-icon"><img src="https://cdn.shopify.com/s/assets/payment_icons/paypal-49e4c1e03244b6d2de0d270ca0d22dd15da6e92cc7266e93eb43762df5aa355d.svg" alt="PayPal"></span>
+                  </div>
+                </div>
+              </label>
+
+              <!-- COD ROW -->
+              <label class="pm-row" id="pm-row-cod">
+                <div class="pm-header">
+                  <input type="radio" name="attributes[Payment_Method]" value="Cash on Delivery (COD)" id="pay-cod">
+                  <div class="pm-text">Contrassegno</div>
+                  <div class="pm-icons">
+                  </div>
+                </div>
+                <div class="pm-content">
+                  <p style="margin: 0;">Paga comodamente i tuoi prodotti direttamente al corriere al momento della consegna. Per qualsiasi dubbio o informazione, il nostro servizio clienti è sempre a disposizione.</p>
+                </div>
+              </label>
+            </div>
           </div>
 
           <p style="font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px;">Note dell'ordine (Opzionale):</p>
@@ -124,27 +136,32 @@
   document.addEventListener('DOMContentLoaded', function() {
     var codRadio = document.getElementById('pay-cod');
     var cardRadio = document.getElementById('pay-card');
+    var paypalRadio = document.getElementById('pay-paypal');
     
     var rowCod = document.getElementById('pm-row-cod');
     var rowCard = document.getElementById('pm-row-card');
+    var rowPaypal = document.getElementById('pm-row-paypal');
 
     function updatePaymentUI() {
-      // Remove active class from both rows
+      // Remove active class from all rows
       if(rowCod) rowCod.classList.remove('is-active');
       if(rowCard) rowCard.classList.remove('is-active');
+      if(rowPaypal) rowPaypal.classList.remove('is-active');
       
       // Add active class dynamically
       if(codRadio && codRadio.checked) {
         if(rowCod) rowCod.classList.add('is-active');
       } else if (cardRadio && cardRadio.checked) {
         if(rowCard) rowCard.classList.add('is-active');
+      } else if (paypalRadio && paypalRadio.checked) {
+        if(rowPaypal) rowPaypal.classList.add('is-active');
       }
     }
     
-    if(codRadio && cardRadio) {
-      codRadio.addEventListener('change', updatePaymentUI);
-      cardRadio.addEventListener('change', updatePaymentUI);
-      // Initialize states
+    if(codRadio || cardRadio || paypalRadio) {
+      if(codRadio) codRadio.addEventListener('change', updatePaymentUI);
+      if(cardRadio) cardRadio.addEventListener('change', updatePaymentUI);
+      if(paypalRadio) paypalRadio.addEventListener('change', updatePaymentUI);
       updatePaymentUI();
     }
   });
