@@ -1,13 +1,13 @@
 /* Xophia Custom Styles */
 
 
-  $color-primary-bg: #FDFBF7; /* Warm beige / soft cream */
-  $color-accent: #7A8B6A; /* Olive green */
-  $color-accent-hover: #637254;
-  $color-text-main: #2C2C2C; /* Dark grey for elegant text */
-  $color-text-light: #666666;
+  $color-primary-bg: #FCF8F2; /* Warm beige / soft cream */
+  $color-accent: #B84A28; /* Olive green */
+  $color-accent-hover: #8F371C;
+  $color-text-main: #1C1A19; /* Dark grey for elegant text */
+  $color-text-light: #6A6561;
   $color-white: #FFFFFF;
-  $color-border: #E8E8E8;
+  $color-border: #DEE2E6;
   
   $font-family-main: 'Inter', 'Helvetica Neue', Arial, sans-serif;
   $font-family-heading: 'Outfit', 'Helvetica Neue', Arial, sans-serif;
@@ -354,7 +354,7 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 25px;
 }
 .benefit-icon {
-  background: rgba(122, 139, 106, 0.1);
+  background: rgba(184, 74, 40, 0.1);
   color: $color-accent;
   width: 48px;
   height: 48px;
@@ -399,7 +399,7 @@ h1, h2, h3, h4, h5, h6 {
 .review-card:hover {
   transform: translateY(-8px);
   box-shadow: 0 20px 40px rgba(0,0,0,0.08);
-  border-color: rgba(122, 139, 106, 0.2);
+  border-color: rgba(184, 74, 40, 0.2);
 }
 .stars {
   color: #F4C150;
@@ -568,13 +568,13 @@ body {
   transition: $transition-smooth;
 }
 .payment-option-label:hover {
-  border-color: rgba(122, 139, 106, 0.4);
-  background: rgba(122, 139, 106, 0.02);
+  border-color: rgba(184, 74, 40, 0.4);
+  background: rgba(184, 74, 40, 0.02);
 }
 .payment-options input[type="radio"]:checked + .payment-option-label {
   border-color: $color-accent;
-  background: rgba(122, 139, 106, 0.05);
-  box-shadow: 0 4px 15px rgba(122, 139, 106, 0.1);
+  background: rgba(184, 74, 40, 0.05);
+  box-shadow: 0 4px 15px rgba(184, 74, 40, 0.1);
 }
 .po-left {
   display: flex;
@@ -624,14 +624,14 @@ body {
   padding: 16px;
   background: linear-gradient(135deg, $color-accent 0%, #57654a 100%);
   border-radius: $radius-md;
-  box-shadow: 0 10px 20px rgba(122, 139, 106, 0.25);
+  box-shadow: 0 10px 20px rgba(184, 74, 40, 0.25);
   margin-top: 15px;
   font-weight: 600;
   letter-spacing: 0.5px;
 }
 .checkout-btn:hover {
   transform: translateY(-3px);
-  box-shadow: 0 15px 30px rgba(122, 139, 106, 0.35);
+  box-shadow: 0 15px 30px rgba(184, 74, 40, 0.35);
 }
 
 /* Fancy Product Cards Glassmorphism */
@@ -715,7 +715,7 @@ body {
 .hero-overlay {
   position: absolute;
   top: 0; right: 0; bottom: 0; left: 0;
-  background: linear-gradient(135deg, rgba(30,30,30,0.6) 0%, rgba(122,139,106,0.5) 100%);
+  background: linear-gradient(135deg, rgba(30,30,30,0.6) 0%, rgba(184,74,40,0.5) 100%);
   z-index: 1;
 }
 .video-hero .glass-panel {
@@ -876,7 +876,7 @@ body {
 }
 
 .product-trust-box {
-  background: rgba(122, 139, 106, 0.05);
+  background: rgba(184, 74, 40, 0.05);
   border-radius: 16px;
   padding: 25px;
 }
@@ -945,7 +945,7 @@ body {
 }
 .cart-item-premium:hover {
   transform: translateY(-5px);
-  border-color: rgba(122, 139, 106, 0.3);
+  border-color: rgba(184, 74, 40, 0.3);
 }
 .ci-image img {
   width: 140px;
@@ -1028,7 +1028,7 @@ body {
   border-top: 1px dashed \-border;
   border-bottom: 1px dashed \-border;
   margin: 30px 0;
-  background: rgba(122,139,106, 0.03);
+  background: rgba(184,74,40, 0.03);
   margin-left: -40px;
   margin-right: -40px;
   padding-left: 40px;
@@ -1066,4 +1066,33 @@ body {
 }
 .trust-badges-cart svg {
   color: \-accent;
+}
+
+/* --- NEW PREMIUM LOGO STYLES --- */
+.xophia-text-logo {
+  font-family: 'Outfit', 'Helvetica Neue', sans-serif !important;
+  font-size: 34px !important;
+  font-weight: 800 !important;
+  letter-spacing: 2px !important;
+  color: #1C1A19 !important;
+  text-decoration: none !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 15px !important;
+  text-transform: uppercase !important;
+  transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1) !important;
+}
+.xophia-text-logo svg {
+  width: 44px !important;
+  height: 44px !important;
+  color: #B84A28 !important;
+  transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) !important;
+}
+.xophia-text-logo:hover svg {
+  transform: rotate(180deg) scale(1.1) !important;
+}
+.xophia-text-logo span.logo-text {
+  background: linear-gradient(135deg, #1C1A19 0%, #B84A28 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
 }
